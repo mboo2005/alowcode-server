@@ -1,10 +1,34 @@
-# NodeJs RBAC权限管理(Server)
+# alowcode-server
 
-> koa2+sequelize+mysql构建权限管理系统api
+> 基于百度开源的amis服务实现的低代码平台server端
 
-演示地址 [http://koa2manager.undeadfrost.cn/admin/login](http://koa2manager.undeadfrost.cn/admin/login)
-账号 admin 密码 123456
-前端工程地址 [https://github.com/undeadfrost/koa2-manager-web](https://github.com/undeadfrost/koa2-manager-web)
+什么是alowcode，alowcode是一个开源的低代码平台，非常适合业务有自己的服务端，需要做一个mis后台给管理员使用，方便管理一些业务功能，比如需要查看注册用户列表，查看当天统计数据等。常见的开发方式是前端写页面，调用后端接口，这样工作量比较大，但对于后台页面，完全可以有低代码平台来解决。在百度内部，有这样一个非常好用的系统，对外付费版是爱速搭，如果有钱的企业可以直接采购爱速搭，功能很强大，也可以私有化部署。对于小型企业，想有一个免费的、可控的低代码平台，可以考虑alowcode。
 
-## 项目简介
-基于koa2实现RBAC权限管理服务端api。接口增删该查均具有单独权限，
+alowcode分服务端和前端，服务端是alowcode-server，前端是alowcode-web
+
+演示环境：..
+
+## 实现功能
+### 用户体系，登陆注册
+### 用户权限
+
+RBAC(Role Based Access Control)基于角色的权限控制系统，可以到控制权限到页面级别，内部按钮级别待开发
+
+总体实现框架为
+
+```
+【用户】--属于-->【角色】--具有-->【权限】
+【页面】--需要-->【权限】
+  用用户的权限和页面权限对比检查
+```
+### 页面管理
+在alowcode低代码平台创建的页面对应管理端
+
+### 代理服务
+alowcode平台给第三方服务发送的请求有代码服务统一转发，这样有3个好处：
+1. alowcode服务server可以和业务server部署到同一机房实现内网访问，避免管理功能泄露到外网
+1. 业务server不需要处理跨域请求等问题
+1. 业务server需要的鉴权等操作可以有proxy实现（需要定制开发）业务server也可以通过alowcode请求携带的header信息来做验证；proxy也会把alowcode这边的用户及权限、角色携带过去，业务server可以校验使用
+1. 所有请求经过了proxy，可以做统一的操作日志记录，实现管理审计功能
+
+### todo
