@@ -32,8 +32,53 @@ alowcode平台给第三方服务发送的请求有代码服务统一转发，这
 
 ### 如何使用
 
+#### 1、安装依赖
 ```
-npm install
+npm i 
+```
 
-npm run dev 
+#### 2、创建mysql数据库
+
+mysql数据库的配置信息在 `server/conf/dev.js` 里面
+如下所示：
 ```
+const config = {
+	// 项目端口
+	port: 8001,
+	// 数据库配置
+	db: {
+		database: 'mis_db',
+		username: 'root',
+		password: '123456',
+		host: 'localhost',
+		port: 3306,
+		dialect: 'mysql'
+	},
+	secret: 'Y4G0sAn26e' //proxy携带的秘钥
+}
+
+module.exports = config
+
+```
+修改对应的数据库配置，端口配置。线上配置为`server/conf/prod.js`
+
+
+#### 3、通过sequelize 创建数据表
+如下图所示，在`server/db`目录下执行 `node sync.js` 就可以创建数据表
+
+![](https://img2020.cnblogs.com/blog/872412/202110/872412-20211029105350043-1699538103.png)
+
+这里创建了`chart` 和 `user` 两个数据表
+然后在`user`表里添加一条测试账号的数据，如下图所示
+
+![](https://img2020.cnblogs.com/blog/872412/202110/872412-20211029105442062-193211385.png)
+
+
+#### 4、启动项目
+`npm run start` 启动前端项目
+`npm run server` 启动server端项目
+然后通过 `http://localhost:8001` 就可以访问项目了
+
+
+### 声明
+基于https://github.com/YalongYan/amis-react-node/tree/master/server 二次开发实现
