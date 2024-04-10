@@ -11,7 +11,6 @@ alowcode分服务端和前端，服务端是alowcode-server，前端是alowcode-
 ## 实现功能
 ### 用户体系，登陆注册
 ### 用户权限
-
 RBAC(Role Based Access Control)基于角色的权限控制系统，可以到控制权限到页面级别，内部按钮级别待开发
 
 总体实现框架为
@@ -31,4 +30,10 @@ alowcode平台给第三方服务发送的请求有代码服务统一转发，这
 1. 业务server需要的鉴权等操作可以有proxy实现（需要定制开发）业务server也可以通过alowcode请求携带的header信息来做验证；proxy也会把alowcode这边的用户及权限、角色携带过去，业务server可以校验使用
 1. 所有请求经过了proxy，可以做统一的操作日志记录，实现管理审计功能
 
-### todo
+### 如何使用
+
+```
+npm install
+
+npm run dev 
+```
